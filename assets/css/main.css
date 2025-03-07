@@ -527,6 +527,7 @@ section,
 
 .hero img {
   position: center;
+  size: cover;
   inset: 0;
   display: block;
   width: 50%;
