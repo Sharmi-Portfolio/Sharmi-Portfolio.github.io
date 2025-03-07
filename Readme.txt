@@ -1,7 +1,7 @@
 # Sharmi-Portfolio
 
 Welcome to my personal portfolio website, hosted on GitHub Pages! 🚀  
-This portfolio showcases my work as a **Graphic Designer & Video Editor**.
+This portfolio showcases my work as a **Graphic Designer & UI/UX Designer**.
 
 ## 🌐 Live Website
 [Visit my portfolio](https://sharmi-portfolio.github.io/)
@@ -9,7 +9,6 @@ This portfolio showcases my work as a **Graphic Designer & Video Editor**.
 ## 📁 Project Structure
 - `index.html` - Main landing page
 - `portfolio-details.html` - Portfolio showcase page
-- `service-details.html` - Services offered
 - `assets/` - Images, icons, and styles
 - `forms/` - Contact forms and submissions
 
