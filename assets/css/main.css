@@ -142,6 +142,25 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+
+.sharmi-header {
+  width: 100%;
+  height: 400px; /* Adjust as needed */
+  background-image: url('assets/img/hero-bg.png');
+  background-size: contain; /* Ensures full image is visible */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0078D4; /* Optional: Match the blue tone */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+
+
 .header {
   color: var(--default-color);
   position: fixed;
