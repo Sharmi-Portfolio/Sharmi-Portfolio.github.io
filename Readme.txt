@@ -1,19 +1,47 @@
-# Sharmi-Portfolio
+# Sharmi Portfolio
 
-Welcome to my personal portfolio website, hosted on GitHub Pages! 🚀  
-This portfolio showcases my work as a **Graphic Designer & UI/UX Designer**.
+Welcome to my personal portfolio website, hosted on GitHub Pages.
 
 ## 🌐 Live Website
-[Visit my portfolio](https://sharmi-portfolio.github.io/)
+[Visit My Portfolio](https://Sharmi-Portfolio.github.io)
 
-## 📁 Project Structure
-- `index.html` - Main landing page
-- `portfolio-details.html` - Portfolio showcase page
-- `assets/` - Images, icons, and styles
-- `forms/` - Contact forms and submissions
+## 📌 About
+This portfolio showcases my work as a **freelance graphic designer and video editor**. Here, you can explore my projects, services, and ways to connect with me.
 
-## 🚀 Getting Started
-To view or edit this project locally:
+## 📂 Project Structure
+```
+├── index.html              # Main homepage
+├── portfolio-details.html  # Portfolio details page
+├── service-details.html    # Services page
+├── starter-page.html       # Additional page
+├── assets/                 # Images, stylesheets, scripts
+├── forms/                  # Contact form files
+└── README.md               # Project documentation
+```
+
+## 🚀 Features
+- Responsive and modern design
+- Showcases portfolio work
+- Includes service details
+- Contact and social media links
+
+## 🛠️ How to Run Locally
 1. Clone the repository:
-   ```sh
+   ```bash
    git clone https://github.com/Sharmi-Portfolio/Sharmi-Portfolio.github.io.git
+   ```
+2. Navigate into the project folder:
+   ```bash
+   cd Sharmi-Portfolio.github.io
+   ```
+3. Open `index.html` in your browser.
+
+## 📧 Contact
+Feel free to connect with me on:
+- **Twitter/X**: [Your Handle]
+- **Instagram**: [Your Handle]
+- **LinkedIn**: [Your Profile]
+
+---
+✅ If you like this project, consider giving it a ⭐ on GitHub!
+
