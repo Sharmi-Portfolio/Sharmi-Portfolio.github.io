@@ -6,13 +6,12 @@ Welcome to my personal portfolio website, hosted on GitHub Pages.
 [Visit My Portfolio](https://Sharmi-Portfolio.github.io)
 
 ## 📌 About
-This portfolio showcases my work as a **freelance graphic designer and video editor**. Here, you can explore my projects, services, and ways to connect with me.
+This portfolio showcases my work as a **freelance graphic designer and UI/UX Designer**. Here, you can explore my projects, services, and ways to connect with me.
 
 ## 📂 Project Structure
 ```
 ├── index.html              # Main homepage
 ├── portfolio-details.html  # Portfolio details page
-├── service-details.html    # Services page
 ├── starter-page.html       # Additional page
 ├── assets/                 # Images, stylesheets, scripts
 ├── forms/                  # Contact form files
@@ -22,7 +21,6 @@ This portfolio showcases my work as a **freelance graphic designer and video edi
 ## 🚀 Features
 - Responsive and modern design
 - Showcases portfolio work
-- Includes service details
 - Contact and social media links
 
 ## 🛠️ How to Run Locally
@@ -39,7 +37,7 @@ This portfolio showcases my work as a **freelance graphic designer and video edi
 ## 📧 Contact
 Feel free to connect with me on:
 - **Twitter/X**: [Your Handle]
-- **Instagram**: [Your Handle]
+- **Instagram**: https://www.instagram.com/sharms__21?igsh=NzBtMnh5cng0c2Q0
 - **LinkedIn**: [Your Profile]
 
 ---
