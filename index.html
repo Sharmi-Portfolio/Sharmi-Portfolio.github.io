@@ -112,7 +112,7 @@
                 <ul>
                   
                   <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>B.com CS</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>sharmisharmila2128@gmail.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>sharmilasharmi2128@gmail.com</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li>
                 </ul>
               </div>
@@ -747,7 +747,37 @@
               </div>
             </form>
           </div> End Contact Form -->
-          <form action="https://formspree.io/f/mwpleyrg" method="POST">
+          <form
+  action="https://formspree.io/f/mwpleyrg"
+  class="fs-form"
+  target="_top"
+  method="POST"
+>
+  <div class="fs-field">
+    <label class="fs-label" for="name">Your Name</label>
+    <input class="fs-input" id="name" name="name" required />
+  </div>
+  <div class="fs-field">
+    <label class="fs-label" for="email">Email</label>
+    <input class="fs-input" id="email" name="email" required />
+    <p class="fs-description">
+      This will help me respond to your query via an email.
+    </p>
+  </div>
+  <div class="fs-field">
+    <label class="fs-label" for="message">Message</label>
+    <textarea
+      class="fs-textarea"
+      id="message"
+      name="message"
+      required
+    ></textarea>
+    <p class="fs-description">What would you like to discuss?</p>
+  </div>
+  <div class="fs-button-group">
+    <button class="fs-button" type="submit">Submit</button>
+  </div>
+</form>
 
         
         </div>
