@@ -5,148 +5,24 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="Sharmila - Freelancer, Graphic Designer & UI/UX Designer" name="description">
   <meta content="graphic designer, UI/UX Designer, portfolio, freelancer, showcase" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <title>Sharmila - Graphic & UI/UX Designer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    /* Modern Color Scheme */
+    /* Modern Dark Theme */
     :root {
-      /* Dark theme variables */
-      --primary: #7c4dff;
-      --primary-dark: #651fff;
-      --primary-light: #b388ff;
-      --secondary: #ff4081;
+      --primary: #ff9d68;
+      --primary-dark: #ff7a14;
+      --primary-light: #ffc988;
+      --secondary: #ffffff;
       --dark: #121212;
       --dark-light: #1e1e1e;
       --light: #f5f5f7;
       --gray: #a0a0a0;
-      --accent: #00bcd4;
+      --accent: #ff7a14;
       --card-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
       --profile-border: #ffffff;
-      
-      /* Light theme variables */
-      --light-bg: #f8f9fa;
-      --light-card: #ffffff;
-      --light-text: #333333;
-      --light-gray: #6c757d;
-      --light-border: rgba(0, 0, 0, 0.05);
-      --light-shadow: rgba(0, 0, 0, 0.05);
     }
     
-    /* Light mode styles */
-    body.light-mode {
-      background-color: var(--light-bg);
-      color: var(--light-text);
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.05) 0%, transparent 20%);
-    }
-    
-    body.light-mode h1,
-    body.light-mode h2,
-    body.light-mode h3,
-    body.light-mode h4,
-    body.light-mode h5 {
-      color: var(--light-text);
-    }
-    
-    body.light-mode p {
-      color: var(--light-gray);
-    }
-    
-    body.light-mode header {
-      background: rgba(248, 249, 250, 0.85);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    body.light-mode .logo,
-    body.light-mode nav ul li a,
-    body.light-mode .footer-logo,
-    body.light-mode .footer-links a {
-      color: var(--light-text);
-    }
-    
-    body.light-mode nav ul li a:after {
-      background: var(--primary);
-    }
-    
-    body.light-mode .about,
-    body.light-mode .portfolio,
-    body.light-mode footer {
-      background: #ffffff;
-    }
-    
-    body.light-mode .skill-category,
-    body.light-mode .detail-item,
-    body.light-mode .contact-item,
-    body.light-mode .portfolio-item .portfolio-info,
-    body.light-mode .contact-form input,
-    body.light-mode .contact-form textarea {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid var(--light-border);
-      box-shadow: 0 4px 20px var(--light-shadow);
-    }
-    
-    body.light-mode .tilted-card-inner,
-    body.light-mode .btn-light {
-      background: white;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    body.light-mode .btn-light:hover {
-      background: rgba(124, 77, 255, 0.1);
-    }
-    
-    body.light-mode .social-links a {
-      background: rgba(124, 77, 255, 0.1);
-      color: var(--primary);
-    }
-    
-    body.light-mode .social-links a:hover {
-      background: var(--primary);
-      color: white;
-    }
-    
-    /* Theme Toggle Button */
-    .theme-toggle {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-      box-shadow: 0 5px 20px rgba(124, 77, 255, 0.3);
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
-    
-    .theme-toggle:hover {
-      transform: translateY(-5px) rotate(10deg);
-      box-shadow: 0 10px 30px rgba(124, 77, 255, 0.5);
-    }
-    
-    .theme-toggle i {
-      transition: transform 0.3s ease;
-    }
-    
-    body.light-mode .theme-toggle {
-      background: var(--primary);
-      color: white;
-    }
-    
-    /* Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -163,7 +39,6 @@
         radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.1) 0%, transparent 20%);
       background-attachment: fixed;
-      transition: background-color 0.5s ease, color 0.3s ease;
     }
     
     .container {
@@ -232,7 +107,7 @@
     
     .btn:hover {
       transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(124, 77, 255, 0.4);
+      box-shadow: 0 15px 30px rgba(255, 122, 77, 0.4);
     }
     
     .btn-light {
@@ -268,40 +143,6 @@
       border-radius: 3px;
     }
     
-    /*--------------------------------------------------------------
-# Scroll Top Button
---------------------------------------------------------------*/
-    .scroll-top {
-  position: fixed;
-  visibility: hidden;
-  opacity: 0;
-  right: 15px;
-  bottom: -15px;
-  z-index: 99999;
-  background-color: var(--accent-color);
-  width: 44px;
-  height: 44px;
-  border-radius: 50px;
-  transition: all 0.4s;
-}
-
-.scroll-top i {
-  font-size: 24px;
-  color: var(--contrast-color);
-  line-height: 0;
-}
-
-.scroll-top:hover {
-  background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
-  color: var(--contrast-color);
-}
-
-.scroll-top.active {
-  visibility: visible;
-  opacity: 1;
-  bottom: 15px;
-}
-
     /* Header Styles */
     header {
       position: fixed;
@@ -421,10 +262,6 @@
       color: transparent;
     }
     
-    body.light-mode .hero-text h1 {
-      background: linear-gradient(to right, #333, var(--primary));
-    }
-    
     .hero-text p {
       font-size: 1.25rem;
       margin-bottom: 35px;
@@ -472,10 +309,10 @@
     .social-links a:hover {
       background: var(--primary);
       transform: translateY(-7px) rotate(5deg);
-      box-shadow: 0 10px 25px rgba(124, 77, 255, 0.4);
+      box-shadow: 0 10px 25px rgba(255, 122, 77, 0.4);
     }
     
-    /* Enhanced 3D Tilted Card with Pop-Out Effect - FIXED */
+    /* Enhanced 3D Tilted Card */
     .tilted-card-wrapper {
       perspective: 1500px;
       position: relative;
@@ -496,12 +333,12 @@
       border-radius: 25px;
       overflow: hidden;
       box-shadow: 
-        0 40px 80px rgba(124, 77, 255, 0.4),
+        0 40px 80px rgba(255, 122, 77, 0.4),
         inset 0 0 50px rgba(255, 255, 255, 0.1);
       transform-style: preserve-3d;
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
-      padding-top: 180px; /* Reduced from 140px */
+      padding-top: 180px;
       transform: translateZ(30px);
     }
     
@@ -515,7 +352,7 @@
     
     .tilted-card-image {
       position: absolute;
-      top: 50px; /* Adjusted from -80px */
+      top: 50px;
       left: 0;
       right: 0;
       margin: 0 auto;
@@ -529,7 +366,7 @@
     
     .tilted-card:hover .tilted-card-image {
       transform: 
-        translateY(-30px) /* Reduced from 50px */
+        translateY(-30px)
         translateZ(100px)
         scale(1.15);
       filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
@@ -901,7 +738,7 @@
     
     .portfolio-item:hover {
       transform: translateY(-15px) scale(1.03);
-      box-shadow: 0 25px 50px rgba(124, 77, 255, 0.4);
+      box-shadow: 0 25px 50px rgba(255, 122, 77, 0.4);
     }
     
     .portfolio-img {
@@ -1125,6 +962,53 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
+    /* Evolvion-style text effect */
+    .hero-text h1 {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      color: var(--light) !important;
+    }
+    
+    .hero-text h1 span {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+      margin: 0 2px;
+      padding: 0 6px;
+      transition: color 0.3s ease;
+    }
+    
+    .hero-text h1 span::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      z-index: -1;
+      transition: height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 3px;
+    }
+    
+    .hero-text h1:hover span {
+      color: white;
+    }
+    
+    .hero-text h1:hover span::before {
+      height: 100%;
+    }
+    
+    /* Add delay to each word for sequential animation */
+    .hero-text h1 span:nth-child(1)::before { transition-delay: 0ms; }
+    .hero-text h1 span:nth-child(2)::before { transition-delay: 30ms; }
+    .hero-text h1 span:nth-child(3)::before { transition-delay: 60ms; }
+    .hero-text h1 span:nth-child(4)::before { transition-delay: 90ms; }
+    .hero-text h1 span:nth-child(5)::before { transition-delay: 120ms; }
+    .hero-text h1 span:nth-child(6)::before { transition-delay: 150ms; }
+    .hero-text h1 span:nth-child(7)::before { transition-delay: 180ms; }
+    
     /* Responsive Styles */
     @media (max-width: 1200px) {
       .hero-text h1 {
@@ -1179,10 +1063,6 @@
         z-index: 1000;
       }
       
-      body.light-mode nav ul {
-        background: var(--light-bg);
-      }
-      
       nav ul.active {
         right: 0;
       }
@@ -1210,6 +1090,12 @@
       .about-details {
         grid-template-columns: 1fr;
       }
+      
+      /* Adjust text effect for mobile */
+      .hero-text h1 span {
+        margin: 0;
+        padding: 0 3px;
+      }
     }
     
     @media (max-width: 576px) {
@@ -1228,24 +1114,11 @@
       .tilted-card-content p {
         font-size: 1.1rem;
       }
-      
-      .theme-toggle {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-      }
     }
   </style>
 </head>
 
 <body>
-  <!-- Theme Toggle Button -->
-  <div class="theme-toggle" id="theme-toggle">
-    <i class="fas fa-moon"></i>
-  </div>
-
   <!-- Header -->
   <header id="header">
     <div class="container header-container">
@@ -1253,16 +1126,15 @@
       
       <button class="mobile-toggle" id="mobile-toggle">
         <i class="fas fa-bars"></i>
-        <a href="#home" ></a>
       </button>
       
       <nav>
         <ul id="navmenu">
-          <li><a href="#home" class="Home">Home</a></li>
-          <li><a href="#about" class="About">About</a></li>
-          <li><a href="#skills" class="Skills">Skills</a></li>
-          <li><a href="#portfolio" class="Portfolio">Portfolio</a></li>
-          <li><a href="#contact" class="Contact">Contact</a></li>
+          <li><a href="#home" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -1273,7 +1145,16 @@
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>Hi, I'm Sharmila<br><span>Graphic & UI/UX Designer</span></h1>
+          <h1>
+            <span>Hi,</span>
+            <span>I'm</span>
+            <span>Sharmila</span>
+            <br>
+            <span>Graphic</span>
+            <span>&</span>
+            <span>UI/UX</span>
+            <span>Designer</span>
+          </h1>
           <p>I create compelling designs that captivate audiences and bring ideas to life. Specializing in branding, logo design, and digital experiences that resonate with your audience.</p>
           <p>I'm a <span class="typed-text">Designer</span><span class="typed-cursor">|</span></p>
           <div class="social-links">
@@ -1284,13 +1165,15 @@
           <a href="#portfolio" class="btn">View My Work</a>
         </div>
         
-        <!-- Enhanced 3D Tilted Card with Pop-Out Profile - FIXED -->
+        <!-- 3D Tilted Card -->
         <div class="tilted-card-wrapper">
           <div class="tilted-card">
             <div class="tilted-card-inner">
               <div class="tilted-card-image">
                 <div class="portrait-image">
-                  <img src="images/profile-pic-1-new.png" alt="Sharmila's photo">
+                  <div style="width: 180px; height: 180px; background: linear-gradient(45deg, #a1c4fd, #c2e9fb); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <img src="images/profile-pic-1-new.png" alt="Sharmila's photo">
+                  </div>
                 </div>
               </div>
               <div class="tilted-card-content">
@@ -1608,45 +1491,7 @@
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
   <script>
-    // Light/Dark Mode Toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // Check for saved theme preference or use system preference
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'light') {
-      document.body.classList.add('light-mode');
-      themeIcon.classList.remove('fa-moon');
-      themeIcon.classList.add('fa-sun');
-    } else if (currentTheme === 'dark') {
-      document.body.classList.remove('light-mode');
-      themeIcon.classList.remove('fa-sun');
-      themeIcon.classList.add('fa-moon');
-    } else if (prefersDarkScheme.matches) {
-      themeIcon.classList.add('fa-sun');
-    } else {
-      themeIcon.classList.add('fa-moon');
-    }
-    
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      
-      if (document.body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
-        localStorage.setItem('theme', 'dark');
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-      }
-    });
-    
     // Mobile Navigation Toggle
     const mobileToggle = document.getElementById('mobile-toggle');
     const navMenu = document.getElementById('navmenu');
@@ -1719,7 +1564,7 @@
       setTimeout(type, newTextDelay + 250);
     });
     
-    // Enhanced 3D Tilt Effect with GSAP-style easing
+    // Enhanced 3D Tilt Effect
     const tiltedCard = document.querySelector('.tilted-card');
     
     if (tiltedCard) {
@@ -1759,8 +1604,6 @@
         filterBtns.forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
         btn.classList.add('active');
-        
-        // In a real implementation, you would filter portfolio items here
       });
     });
     
