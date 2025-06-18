@@ -256,10 +256,7 @@
       font-size: 4rem;
       line-height: 1.15;
       margin-bottom: 25px;
-      background: linear-gradient(to right, var(--light), var(--primary-light));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--light);
     }
     
     .hero-text p {
@@ -962,52 +959,16 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* Evolvion-style text effect */
-    .hero-text h1 {
-      background: none !important;
-      -webkit-background-clip: initial !important;
-      background-clip: initial !important;
-      color: var(--light) !important;
+    /* Evolvion-style text hover effect */
+    .hero-text h1 > span > span { /* Targets each letter */
+        display: inline-block; /* Allows for transform */
+        transition: transform 0.2s ease-in-out, font-weight 0.2s ease-in-out;
     }
-    
-    .hero-text h1 span {
-      position: relative;
-      display: inline-block;
-      z-index: 1;
-      margin: 0 2px;
-      padding: 0 6px;
-      transition: color 0.3s ease;
+
+    .hero-text h1:hover > span > span { /* On h1 hover, affect each letter */
+        font-weight: 700; /* Make it bolder */
+        transform: scale(1.15); /* Make it slightly larger */
     }
-    
-    .hero-text h1 span::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 0;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      z-index: -1;
-      transition: height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border-radius: 3px;
-    }
-    
-    .hero-text h1:hover span {
-      color: white;
-    }
-    
-    .hero-text h1:hover span::before {
-      height: 100%;
-    }
-    
-    /* Add delay to each word for sequential animation */
-    .hero-text h1 span:nth-child(1)::before { transition-delay: 0ms; }
-    .hero-text h1 span:nth-child(2)::before { transition-delay: 30ms; }
-    .hero-text h1 span:nth-child(3)::before { transition-delay: 60ms; }
-    .hero-text h1 span:nth-child(4)::before { transition-delay: 90ms; }
-    .hero-text h1 span:nth-child(5)::before { transition-delay: 120ms; }
-    .hero-text h1 span:nth-child(6)::before { transition-delay: 150ms; }
-    .hero-text h1 span:nth-child(7)::before { transition-delay: 180ms; }
     
     /* Responsive Styles */
     @media (max-width: 1200px) {
@@ -1151,8 +1112,9 @@
             <span>Sharmila</span>
             <br>
             <span>Graphic</span>
-            <span>&</span>
+            <span>&amp;</span>
             <span>UI/UX</span>
+            <br>
             <span>Designer</span>
           </h1>
           <p>I create compelling designs that captivate audiences and bring ideas to life. Specializing in branding, logo design, and digital experiences that resonate with your audience.</p>
@@ -1203,7 +1165,7 @@
       <div class="about-content">
         <div class="about-image">
           <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); height: 500px; display: flex; align-items: center; justify-content: center;">
-            <i class="fas fa-user" style="font-size: 140px; color: white;"></i>
+            <img src="images/mikasa.jpg" alt="Sharmila's photo">
           </div>
         </div>
         
@@ -1637,8 +1599,19 @@
       observer.observe(bar);
     });
     
-    // Scrollspy for nav links
+    // Scrollspy for nav links & Letter Hover Effect
     document.addEventListener("DOMContentLoaded", function () {
+      // Evolvion-like letter hover effect
+      const heroH1 = document.querySelector('.hero-text h1');
+      if (heroH1) {
+        const wordSpans = Array.from(heroH1.children).filter(el => el.tagName === 'SPAN');
+        wordSpans.forEach(span => {
+          const text = span.textContent;
+          span.innerHTML = text.split('').map(letter => `<span>${letter}</span>`).join('');
+        });
+      }
+
+      // Scrollspy Logic
       const sections = document.querySelectorAll("section");
       const navLinks = document.querySelectorAll("nav ul li a");
 
