@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="Sharmila - Freelancer, Graphic Designer & UI/UX Designer" name="description">
-  <meta content="graphic designer, UI/UX Designer, portfolio, freelancer, showcase" name="keywords">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sharmila - Graphic & UI/UX Designer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* Modern Dark Theme */
     :root {
@@ -27,7 +26,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Inter', sans-serif;
     }
     
     body {
@@ -252,11 +251,40 @@
       z-index: 2;
     }
     
+    /* Fixed letter spacing */
+    .hero-heading {
+      letter-spacing: -0.05em;
+    }
+    
+    .variable-proximity {
+      font-family: 'Inter', sans-serif;
+      font-variation-settings: 'wght' 200, 'opsz' 9;
+    }
+    
+    .letter {
+      display: inline-block;
+      transition: font-variation-settings 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      will-change: font-variation-settings;
+      /* Reduced spacing between letters */
+      margin-right: -0.20em;
+    }
+    
+    /* Remove margin from the last letter in each word */
+    .word .letter:last-child {
+      margin-right: 0;
+    }
+    
+    /* Add spacing after commas */
+    .letter.comma {
+      margin-right: 0.3em;
+    }
+    
     .hero-text h1 {
-      font-size: 4rem;
-      line-height: 1.15;
-      margin-bottom: 25px;
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
       color: var(--light);
+      font-weight: 700;
     }
     
     .hero-text p {
@@ -274,6 +302,7 @@
     .typed-cursor {
       display: inline-block;
       width: 3px;
+      color: var(--accent);
       background: var(--accent);
       margin-left: 4px;
       animation: blink 0.7s infinite;
@@ -959,17 +988,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* Evolvion-style text hover effect */
-    .hero-text h1 > span > span { /* Targets each letter */
-        display: inline-block; /* Allows for transform */
-        transition: transform 0.2s ease-in-out, font-weight 0.2s ease-in-out;
-    }
-
-    .hero-text h1:hover > span > span { /* On h1 hover, affect each letter */
-        font-weight: 700; /* Make it bolder */
-        transform: scale(1.15); /* Make it slightly larger */
-    }
-    
     /* Responsive Styles */
     @media (max-width: 1200px) {
       .hero-text h1 {
@@ -1051,12 +1069,6 @@
       .about-details {
         grid-template-columns: 1fr;
       }
-      
-      /* Adjust text effect for mobile */
-      .hero-text h1 span {
-        margin: 0;
-        padding: 0 3px;
-      }
     }
     
     @media (max-width: 576px) {
@@ -1101,24 +1113,68 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with fixed letter spacing -->
   <section id="home" class="hero">
     <div class="container">
       <div class="hero-content">
         <div class="hero-text">
-          <h1>
-            <span>Hi,</span>
-            <span>I'm</span>
-            <span>Sharmila</span>
-            <br>
-            <span>Graphic</span>
-            <span>&amp;</span>
-            <span>UI/UX</span>
-            <br>
-            <span>Designer</span>
+          <h1 class="hero-heading">
+            <span class="variable-proximity" id="proximityText">
+              <span class="word">
+                <span class="letter">H</span>
+                <span class="letter">i</span>
+                <span class="letter comma">,</span>
+              </span>
+              <span class="word">
+                <span class="letter">I</span>
+                <span class="letter">'</span>
+                <span class="letter">m</span>
+              </span>
+              <span class="word" style="color: var(--accent);">
+                <span class="letter">S</span>
+                <span class="letter">h</span>
+                <span class="letter">a</span>
+                <span class="letter">r</span>
+                <span class="letter">m</span>
+                <span class="letter">i</span>
+                <span class="letter">l</span>
+                <span class="letter">a</span>
+              </span>
+              <br>
+              <span class="word">
+                <span class="letter">G</span>
+                <span class="letter">r</span>
+                <span class="letter">a</span>
+                <span class="letter">p</span>
+                <span class="letter">h</span>
+                <span class="letter">i</span>
+                <span class="letter">c</span>
+              </span>
+              <span class="word">
+                <span class="letter">&amp;</span>
+              </span>
+              <span class="word">
+                <span class="letter">U</span>
+                <span class="letter">I</span>
+                <span class="letter">/</span>
+                <span class="letter">U</span>
+                <span class="letter">X</span>
+              </span>
+              <br>
+              <span class="word">
+                <span class="letter">D</span>
+                <span class="letter">e</span>
+                <span class="letter">s</span>
+                <span class="letter">i</span>
+                <span class="letter">g</span>
+                <span class="letter">n</span>
+                <span class="letter">e</span>
+                <span class="letter">r</span>
+              </span>
+            </span>
           </h1>
           <p>I create compelling designs that captivate audiences and bring ideas to life. Specializing in branding, logo design, and digital experiences that resonate with your audience.</p>
-          <p>I'm a <span class="typed-text">Designer</span><span class="typed-cursor">|</span></p>
+          <p>I'm a <span class="typed-text"></span><span class="typed-cursor">|</span></p>
           <div class="social-links">
             <a href="https://www.instagram.com/sharms__21"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -1447,7 +1503,7 @@
         </div>
         
         <div class="copyright">
-          <p>&copy; 2023 Sharmila S. All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--secondary);"></i> by Sharmila</p>
+          <p>&copy; 2023 Sharmila S. All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <h2>SURYA </h2></p>
         </div>
       </div>
     </div>
@@ -1465,8 +1521,8 @@
     });
     
     // Close mobile menu when clicking on a link
-    const navLinks = document.querySelectorAll('#navmenu a');
-    navLinks.forEach(link => {
+    const navMenuLinks = document.querySelectorAll('#navmenu a');
+    navMenuLinks.forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
@@ -1487,7 +1543,7 @@
     const typedTextSpan = document.querySelector('.typed-text');
     const cursorSpan = document.querySelector('.typed-cursor');
     
-    const textArray = ["Designer", "Freelancer", "Creative Thinker", "Visual Artist"];
+    const textArray = ["Graphic Designer", "UX/UI Designer", "Creative Thinker", "Visual Storyteller"];
     const typingDelay = 200;
     const erasingDelay = 100;
     const newTextDelay = 2000;
@@ -1599,36 +1655,51 @@
       observer.observe(bar);
     });
     
-    // Scrollspy for nav links & Letter Hover Effect
-    document.addEventListener("DOMContentLoaded", function () {
-      // Evolvion-like letter hover effect
-      const heroH1 = document.querySelector('.hero-text h1');
-      if (heroH1) {
-        const wordSpans = Array.from(heroH1.children).filter(el => el.tagName === 'SPAN');
-        wordSpans.forEach(span => {
-          const text = span.textContent;
-          span.innerHTML = text.split('').map(letter => `<span>${letter}</span>`).join('');
+    // Add proximity effect to hero text
+    const letters = document.querySelectorAll('.letter');
+    const container = document.getElementById('proximityText');
+    
+    if (container) {
+      container.addEventListener('mousemove', (e) => {
+        letters.forEach(letter => {
+          const rect = letter.getBoundingClientRect();
+          const x = rect.left + rect.width/2;
+          const y = rect.top + rect.height/2;
+          const distance = Math.sqrt(Math.pow(e.clientX - x, 2) + Math.pow(e.clientY - y, 2));
+          
+          // Adjust font settings based on proximity
+          const weight = Math.max(200, 900 - distance * 5);
+          const size = Math.max(9, 50 - distance * 0.2);
+          
+          letter.style.fontVariationSettings = `"wght" ${weight}, "opsz" ${size}`;
         });
+      });
+      
+      container.addEventListener('mouseleave', () => {
+        letters.forEach(letter => {
+          // Reset to default settings
+          letter.style.fontVariationSettings = '"wght" 200, "opsz" 9';
+        });
+      });
+    }
+    
+    // Scrollspy for nav links
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll("nav ul li a");
+
+    function updateActiveLink() {
+      let index = sections.length;
+
+      while (--index && window.scrollY + 100 < sections[index].offsetTop) {}
+
+      navLinks.forEach((link) => link.classList.remove("active"));
+      if (navLinks[index]) {
+        navLinks[index].classList.add("active");
       }
+    }
 
-      // Scrollspy Logic
-      const sections = document.querySelectorAll("section");
-      const navLinks = document.querySelectorAll("nav ul li a");
-
-      function updateActiveLink() {
-        let index = sections.length;
-
-        while (--index && window.scrollY + 100 < sections[index].offsetTop) {}
-
-        navLinks.forEach((link) => link.classList.remove("active"));
-        if (navLinks[index]) {
-          navLinks[index].classList.add("active");
-        }
-      }
-
-      updateActiveLink();
-      window.addEventListener("scroll", updateActiveLink);
-    });
+    updateActiveLink();
+    window.addEventListener("scroll", updateActiveLink);
   </script>
 </body>
 </html>
