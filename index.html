@@ -151,14 +151,14 @@
       border-radius: 3px;
     }
     
-    /* --- UPDATED HEADER STYLES --- */
+    /* --- HEADER STYLES --- */
     header#header {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         z-index: 1000;
-        padding: 0; /* No padding when full-width */
+        padding: 0;
         transition: padding var(--transition-speed) var(--timing-function);
     }
 
@@ -166,12 +166,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 100%; /* Initially full width */
+        max-width: 100%;
         margin: 0 auto;
-        padding: 5px 5%; /* Padding for full-width bar content */
+        padding: 5px 5%;
         background-color: rgba(18, 18, 18, 0.5);
         backdrop-filter: blur(20px);
-        border-radius: 0; /* No rounded corners initially */
+        border-radius: 0;
         transition: max-width var(--transition-speed) var(--timing-function),
                     border-radius var(--transition-speed) var(--timing-function),
                     padding var(--transition-speed) var(--timing-function);
@@ -185,14 +185,10 @@
         align-items: center;
         transition: font-size var(--transition-speed) var(--timing-function);
         padding: 10px 0;
+        white-space: nowrap;
     }
 
     #main-nav .logo a span {
-        color: var(--primary);
-    }
-
-    #main-nav .logo a i {
-        margin-right: 10px;
         color: var(--primary);
     }
     
@@ -211,51 +207,54 @@
         font-weight: 500;
         position: relative;
         font-size: 16px;
-        padding: 5px 0;
+        padding: 5px;
         transition: color 0.3s ease;
+        white-space: nowrap;
     }
 
     .nav-links li a:hover {
         color: var(--primary);
     }
 
-    .nav-links li a:after {
+    /* --- FIXED ACTIVE UNDERLINE --- */
+    .nav-links li a::after {
         content: '';
         position: absolute;
         bottom: -5px;
-        left: 0;
+        left: 50%;
+        transform: translateX(-50%);
         width: 0;
         height: 2px;
         background: var(--primary);
         transition: width 0.3s ease;
     }
 
-    .nav-links li a:hover:after,
-    .nav-links li a.active:after {
+    .nav-links li a:hover::after,
+    .nav-links li a.active::after {
         width: 100%;
     }
 
     /* --- Shrunken Header State --- */
     header#header.shrunken {
-        padding: 10px 0; /* Add padding to position the pill */
+        padding: 10px 0;
     }
     
     header#header.shrunken #main-nav {
-        max-width: 850px; /* New compact width */
-        border-radius: 50px; /* Makes it pill-shaped */
+        max-width: 850px;
+        border-radius: 50px;
         background-color: rgba(18, 18, 18, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 30px rgba(0,0,0,0.2);
-        padding: 0 30px; /* Padding for pill shape */
+        padding: 0 30px;
     }
     
     header#header.shrunken .logo a {
-        font-size: 22px; /* Slightly smaller logo text */
+        font-size: 22px;
     }
 
     header#header.shrunken .nav-links {
-        gap: 25px; /* Reduce gap between links */
+        gap: 25px;
     }
 
      header#header.shrunken .nav-links a {
@@ -264,14 +263,7 @@
     
     .mobile-toggle {
       display: none;
-      background: none;
-      border: none;
-      color: var(--light);
-      font-size: 28px;
-      cursor: pointer;
-      z-index: 1001;
     }
-    
     
     /* Hero Section */
     .hero {
@@ -280,7 +272,7 @@
       align-items: center;
       position: relative;
       overflow: hidden;
-      padding-top: 120px; /* Adjusted padding to clear header */
+      padding-top: 120px;
       padding-bottom: 80px;
     }
     
@@ -298,21 +290,20 @@
       z-index: 2;
     }
     
-    /* -- RESTORED HERO TEXT ANIMATION -- */
     .hero-heading {
-      letter-spacing: -0.0.10em;
+      letter-spacing: -0.05em;
     }
     
     .variable-proximity {
       font-family: 'Inter', sans-serif;
-      font-variation-settings: 'wght' 200; /* Start at normal weight */
+      font-variation-settings: 'wght' 200;
     }
     
     .letter {
       display: inline-block;
-      transition: font-variation-settings 0.2s ease-out; /* Faster, smoother transition */
+      transition: font-variation-settings 0.2s ease-out;
       will-change: font-variation-settings;
-      margin-right: -0.0.10em;
+      margin-right: -0.1em;
     }
     
     .word .letter:last-child {
@@ -320,7 +311,7 @@
     }
     
     .letter.comma {
-      margin-right: -0.3em;
+      margin-right: 0.3em;
     }
     
     .hero-text h1 {
@@ -382,7 +373,6 @@
       box-shadow: 0 10px 25px rgba(255, 122, 77, 0.4);
     }
     
-    /* Enhanced 3D Tilted Card */
     .tilted-card-wrapper {
       perspective: 1500px;
       position: relative;
@@ -514,8 +504,6 @@
       transform: translateY(-3px);
     }
     
-    /* --- Other Sections --- */
-    /* Styles for About, Skills, Portfolio, Contact, Footer are unchanged */
     .about { background: var(--dark-light); position: relative; overflow: hidden; }
     .about:before { content: ''; position: absolute; top: -200px; left: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, var(--primary), transparent 70%); opacity: 0.1; z-index: 0; }
     .about:after { content: ''; position: absolute; bottom: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--secondary), transparent 70%); opacity: 0.1; z-index: 0; }
@@ -585,8 +573,7 @@
     .social-links.footer-social { justify-content: center; margin: 30px 0 40px; }
     .copyright { color: var(--gray); font-size: 16px; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
     
-    /* Responsive Styles */
-    @media (max-width: 1200px) { .hero-text h1 { font-size: 3.5rem; } }
+    /* --- RESPONSIVE STYLES (MOBILE FIX) --- */
     @media (max-width: 992px) {
       .hero-content { flex-direction: column; text-align: center; } 
       .hero-text { max-width: 100%; margin-bottom: 60px; } 
@@ -596,22 +583,49 @@
       .tilted-card-wrapper { margin: 0 auto; } 
       header#header.shrunken #main-nav { max-width: 95%; }
     }
+    
     @media (max-width: 768px) {
-      .mobile-toggle { display: block; position: relative; } 
-      #main-nav { padding: 0 5%; }
-      .nav-links { position: fixed; top: 0; right: -100%; width: 300px; height: 100vh; background: var(--dark); flex-direction: column; align-items: center; justify-content: center; padding: 100px 0 40px; transition: right 0.4s ease; z-index: 1000; gap: 0; }
-      .nav-links.active { right: 0; }
-      .nav-links li { margin: 20px 0; }
-      header#header.shrunken .nav-links { display: none; }
-      header#header:not(.shrunken) .nav-links { display: none; } /* Hide desktop nav on mobile */
-      header#header:not(.shrunken) .logo { flex-grow: 1; }
+      .nav-links {
+        gap: 15px; /* Reduce gap on smaller screens */
+      }
+      .nav-links li a {
+        font-size: 14px; /* Make link text smaller */
+      }
+      header#header.shrunken #main-nav {
+        padding: 0 20px;
+      }
+      header#header.shrunken .nav-links {
+        gap: 15px;
+      }
+      header#header.shrunken .nav-links a {
+        font-size: 13px;
+      }
       .hero-text h1 { font-size: 2.8rem; }
       .skills-container { grid-template-columns: 1fr; }
       .portfolio-grid { grid-template-columns: 1fr; }
       .section-title h2 { font-size: 36px; }
       .about-details { grid-template-columns: 1fr; }
     }
-    @media (max-width: 576px) { .hero-text h1 { font-size: 2.3rem; } .section-title h2 { font-size: 30px; } .tilted-card-content h3 { font-size: 1.8rem; } .tilted-card-content p { font-size: 1.1rem; } }
+    
+    @media (max-width: 576px) {
+      .hero-text h1 { font-size: 2.3rem; }
+      .section-title h2 { font-size: 30px; }
+      .tilted-card-content h3 { font-size: 1.8rem; } 
+      .tilted-card-content p { font-size: 1.1rem; }
+      .nav-links li a {
+        font-size: 12px; /* Further reduce font size on very small screens */
+        padding: 5px 2px;
+      }
+      .nav-links {
+        gap: 8px;
+      }
+       header#header.shrunken .nav-links a {
+        font-size: 12px;
+      }
+      header#header.shrunken .logo a {
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 
@@ -619,8 +633,7 @@
   <header id="header">
       <nav id="main-nav">
           <div class="logo">
-              <a href="#home">
-                <img src="" alt=""> Sharmila<span>.</span></a>
+              <a href="#home">Sharmila<span>.</span></a>
           </div>
           <ul class="nav-links" id="navmenu">
               <li><a href="#home" class="active">Home</a></li>
@@ -1011,20 +1024,22 @@
         }
       });
 
-      // --- Mobile Navigation Toggle ---
-      mobileToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        mobileToggle.innerHTML = navMenu.classList.contains('active') ? 
-          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-      });
-
-      // --- Close Mobile Menu on Link Click ---
+      // --- UPDATED Nav Link Click Handler ---
       const navMenuLinks = document.querySelectorAll('#navmenu a');
       navMenuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          if (navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // Update active class on click
+          navMenuLinks.forEach(l => l.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Smooth scroll
+          const targetElement = document.querySelector(this.getAttribute('href'));
+          if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: 'smooth'
+              });
           }
         });
       });
@@ -1132,21 +1147,7 @@
           btn.classList.add('active');
         });
       });
-
       
-      // --- Smooth Scrolling ---
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetElement = document.querySelector(this.getAttribute('href'));
-          if (targetElement) {
-              targetElement.scrollIntoView({
-                behavior: 'smooth'
-              });
-          }
-        });
-      });
-
       // --- Animate Progress Bars ---
       const progressBars = document.querySelectorAll('.skill-progress');
       const observer = new IntersectionObserver((entries) => {
@@ -1164,16 +1165,22 @@
 
       // --- Scrollspy ---
       const sections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll(".nav-links li a");
       function updateActiveLink() {
-        let index = sections.length;
-        while (--index && window.scrollY + 100 < sections[index].offsetTop) {}
-        navLinks.forEach((link) => link.classList.remove("active"));
-        if (navLinks[index]) {
-          navLinks[index].classList.add("active");
-        }
+        let currentSection = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          if (pageYOffset >= sectionTop - 100) {
+            currentSection = section.getAttribute("id");
+          }
+        });
+
+        navMenuLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href").substring(1) === currentSection) {
+            link.classList.add("active");
+          }
+        });
       }
-      updateActiveLink();
       window.addEventListener("scroll", updateActiveLink);
     });
   </script>
