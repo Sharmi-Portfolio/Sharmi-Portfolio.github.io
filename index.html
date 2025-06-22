@@ -47,6 +47,30 @@
         radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.1) 0%, transparent 20%),
         radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.1) 0%, transparent 20%);
       background-attachment: fixed;
+      cursor: none; /* Hide default cursor */
+    }
+
+    /* --- NEW: Gooey Cursor --- */
+    .cursor {
+      filter: url(#gooey);
+      pointer-events: none;
+      z-index: 9999;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .cursor__circle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease, transform 0.1s ease-out;
+    }
+    .cursor.hovered .cursor__circle {
+        transform: translate(-50%, -50%) scale(1.5);
+        background-color: var(--primary-light);
     }
     
     .container {
@@ -71,6 +95,10 @@
       color: var(--gray);
     }
     
+    a, button, .filter-btn, .portfolio-item {
+      cursor: none; /* Hide default cursor for interactive elements */
+    }
+    
     a {
       text-decoration: none;
       color: var(--accent);
@@ -90,7 +118,6 @@
       font-weight: 600;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       border: none;
-      cursor: pointer;
       font-size: 16px;
       position: relative;
       overflow: hidden;
@@ -540,7 +567,7 @@
     .portfolio { background: var(--dark-light); position: relative; overflow: hidden; }
     .portfolio:before { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--primary), transparent 70%); opacity: 0.1; z-index: 0; }
     .portfolio-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; position: relative; z-index: 2; }
-    .filter-btn { padding: 12px 28px; background: rgba(255, 255, 255, 0.08); border: none; border-radius: 50px; color: var(--light); font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .filter-btn { padding: 12px 28px; background: rgba(255, 255, 255, 0.08); border: none; border-radius: 50px; color: var(--light); font-size: 17px; font-weight: 500; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     .filter-btn.active, .filter-btn:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(124, 77, 255, 0.3); }
     .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 35px; position: relative; z-index: 2; }
     .portfolio-item { border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); transform: translateY(0) scale(1); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -589,6 +616,13 @@
     }
     
     @media (max-width: 768px) {
+      /* Hide custom cursor on mobile for better UX */
+      .cursor {
+        display: none !important;
+      }
+      body, .btn, .mobile-toggle, .filter-btn {
+        cursor: default;
+      }
       .nav-links {
         gap: 15px; /* Reduce gap on smaller screens */
       }
@@ -634,6 +668,36 @@
 </head>
 
 <body>
+  <!-- NEW: Gooey Cursor Elements -->
+  <div class="cursor">
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+    <div class="cursor__circle"></div>
+  </div>
+
+  <!-- SVG Filter for Gooey Effect -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
+    <defs>
+      <filter id="gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -7" result="goo" />
+        <feBlend in="SourceGraphic" in2="goo" />
+      </filter>
+    </defs>
+  </svg>
+
   <header id="header">
       <nav id="main-nav">
           <div class="logo">
@@ -1019,6 +1083,54 @@
       const mobileToggle = document.getElementById('mobile-toggle');
       const navMenu = document.getElementById('navmenu');
 
+      // --- NEW: Gooey Cursor Animation ---
+      const cursor = document.querySelector('.cursor');
+      const circles = document.querySelectorAll('.cursor__circle');
+      const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .portfolio-item, .social-links a, .tilted-card');
+
+      const coords = { x: 0, y: 0 };
+      const circleCoords = circles.forEach((circle, index) => {
+        circle.x = 0;
+        circle.y = 0;
+      });
+
+      window.addEventListener('mousemove', e => {
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+      });
+
+      function animateCircles() {
+        let x = coords.x;
+        let y = coords.y;
+
+        circles.forEach((circle, index) => {
+          circle.style.left = x - 12 + 'px';
+          circle.style.top = y - 12 + 'px';
+          
+          circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
+          
+          circle.x = x;
+          circle.y = y;
+
+          const nextCircle = circles[index + 1] || circles[0];
+          x += (nextCircle.x - x) * 0.3;
+          y += (nextCircle.y - y) * 0.3;
+        });
+
+        requestAnimationFrame(animateCircles);
+      }
+
+      animateCircles();
+      
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.classList.add('hovered');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hovered');
+        });
+      });
+
       // --- Header Scroll Effect ---
       window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -1157,13 +1269,13 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.width = entry.target.getAttribute('data-width');
+            // Use getAttribute to ensure you have the correct target width
+            const width = entry.target.parentElement.previousElementSibling.querySelector('span:last-child').textContent;
+            entry.target.style.width = width;
           }
         });
       }, { threshold: 0.5 });
       progressBars.forEach(bar => {
-        bar.setAttribute('data-width', bar.style.width);
-        bar.style.width = '0%';
         observer.observe(bar);
       });
 
