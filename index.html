@@ -43,34 +43,51 @@
       color: var(--light);
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.1) 0%, transparent 20%);
       background-attachment: fixed;
       cursor: none; /* Hide default cursor */
     }
 
-    /* --- NEW: Gooey Cursor --- */
-    .cursor {
-      filter: url(#gooey);
-      pointer-events: none;
-      z-index: 9999;
+    /* --- Particle Canvas Background --- */
+    #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; 
+    }
+
+    /* --- NEW: Trailing Dots Cursor --- */
+    .cursor-dot {
       position: fixed;
       top: 0;
       left: 0;
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.1s ease-out;
     }
-    .cursor__circle {
-      position: absolute;
+    .cursor-dot-outline {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 30px;
       height: 30px;
+      border: 2px solid var(--primary-light);
       border-radius: 50%;
-      background-color: var(--primary);
+      pointer-events: none;
       transform: translate(-50%, -50%);
-      transition: background-color 0.3s ease, transform 0.1s ease-out;
+      z-index: 9998;
+      transition: all 0.2s ease-out;
     }
-    .cursor.hovered .cursor__circle {
-        transform: translate(-50%, -50%) scale(1.5);
-        background-color: var(--primary-light);
+    .cursor-dot-outline.hover {
+      background-color: rgba(255, 157, 104, 0.2);
+      width: 40px;
+      height: 40px;
     }
     
     .container {
@@ -82,6 +99,8 @@
     
     section {
       padding: 100px 0;
+      position: relative; 
+      z-index: 2;
     }
     
     h1, h2, h3, h4, h5 {
@@ -96,7 +115,7 @@
     }
     
     a, button, .filter-btn, .portfolio-item {
-      cursor: none; /* Hide default cursor for interactive elements */
+      cursor: none; 
     }
     
     a {
@@ -617,7 +636,7 @@
     
     @media (max-width: 768px) {
       /* Hide custom cursor on mobile for better UX */
-      .cursor {
+      .cursor-dot, .cursor-dot-outline, #particle-canvas {
         display: none !important;
       }
       body, .btn, .mobile-toggle, .filter-btn {
@@ -668,35 +687,12 @@
 </head>
 
 <body>
-  <!-- NEW: Gooey Cursor Elements -->
-  <div class="cursor">
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-    <div class="cursor__circle"></div>
-  </div>
+  <!-- Canvas for Particle Effect -->
+  <canvas id="particle-canvas"></canvas>
 
-  <!-- SVG Filter for Gooey Effect -->
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none;">
-    <defs>
-      <filter id="gooey">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -7" result="goo" />
-        <feBlend in="SourceGraphic" in2="goo" />
-      </filter>
-    </defs>
-  </svg>
+  <!-- Trailing Dots Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-dot-outline"></div>
 
   <header id="header">
       <nav id="main-nav">
@@ -1083,53 +1079,147 @@
       const mobileToggle = document.getElementById('mobile-toggle');
       const navMenu = document.getElementById('navmenu');
 
-      // --- NEW: Gooey Cursor Animation ---
-      const cursor = document.querySelector('.cursor');
-      const circles = document.querySelectorAll('.cursor__circle');
+      // --- Trailing Dots Cursor ---
+      const cursorDot = document.querySelector('.cursor-dot');
+      const cursorOutline = document.querySelector('.cursor-dot-outline');
       const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .portfolio-item, .social-links a, .tilted-card');
-
-      const coords = { x: 0, y: 0 };
-      const circleCoords = circles.forEach((circle, index) => {
-        circle.x = 0;
-        circle.y = 0;
-      });
+      
+      let mouseX = 0, mouseY = 0;
+      let outlineX = 0, outlineY = 0;
+      const easing = 0.15;
 
       window.addEventListener('mousemove', e => {
-        coords.x = e.clientX;
-        coords.y = e.clientY;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
       });
 
-      function animateCircles() {
-        let x = coords.x;
-        let y = coords.y;
+      function animateCursor() {
+        cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        
+        const deltaX = mouseX - outlineX;
+        const deltaY = mouseY - outlineY;
+        outlineX += deltaX * easing;
+        outlineY += deltaY * easing;
 
-        circles.forEach((circle, index) => {
-          circle.style.left = x - 12 + 'px';
-          circle.style.top = y - 12 + 'px';
-          
-          circle.style.transform = `scale(${(circles.length - index) / circles.length})`;
-          
-          circle.x = x;
-          circle.y = y;
-
-          const nextCircle = circles[index + 1] || circles[0];
-          x += (nextCircle.x - x) * 0.3;
-          y += (nextCircle.y - y) * 0.3;
-        });
-
-        requestAnimationFrame(animateCircles);
+        cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
+        
+        requestAnimationFrame(animateCursor);
       }
+      animateCursor();
 
-      animateCircles();
-      
       interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
-          cursor.classList.add('hovered');
+          cursorOutline.classList.add('hover');
         });
         el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('hovered');
+          cursorOutline.classList.remove('hover');
         });
       });
+
+
+      // --- Interactive Particle Background ---
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let particlesArray;
+
+      const mouse = {
+        x: null,
+        y: null,
+        radius: (canvas.height / 120) * (canvas.width / 120)
+      }
+
+      window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+      });
+      
+      class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+          this.x = x;
+          this.y = y;
+          this.directionX = directionX;
+          this.directionY = directionY;
+          this.size = size;
+          this.color = color;
+          this.baseSize = size;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = this.color;
+          ctx.fill();
+        }
+
+        update() {
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+          }
+          
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx*dx + dy*dy);
+          if (distance < mouse.radius + this.size){
+              this.x -= dx / 10;
+              this.y -= dy / 10;
+          }
+
+          this.x += this.directionX;
+          this.y += this.directionY;
+          
+          // Twinkle effect
+          this.size = this.baseSize + Math.sin(Date.now() * 0.005 + this.x) * 0.5;
+
+          this.draw();
+        }
+      }
+      
+      function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        for (let i = 0; i < numberOfParticles; i++) {
+          let size = (Math.random() * 2) + 1;
+          let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+          let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+          let directionX = (Math.random() * .4) - .2;
+          let directionY = (Math.random() * .4) - .2;
+          let color = `hsla(30, 100%, ${Math.random() * 50 + 50}%, 1)`;
+          particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+        for (let i = 0; i < particlesArray.length; i++) {
+          particlesArray[i].update();
+        }
+      }
+      
+      window.addEventListener('resize', () => {
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        mouse.radius = ((canvas.height / 120) * (canvas.width / 120));
+        init();
+      });
+
+      window.addEventListener('mouseout', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+      });
+
+      init();
+      animate();
+
 
       // --- Header Scroll Effect ---
       window.addEventListener('scroll', () => {
