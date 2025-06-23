@@ -657,10 +657,14 @@
     
     @media (max-width: 768px) {
       /* Hide custom cursor on mobile for better UX */
-      #image-cursor, #particle-canvas {
+      #image-cursor {
         display: none !important;
       }
       
+      #particle-canvas {
+        display: inherit !important; /* Ensure canvas is visible on mobile */
+      }
+
       body, .btn, .mobile-toggle, .filter-btn {
         cursor: default;
       }
@@ -844,8 +848,8 @@
       
       <div class="about-content">
         <div class="about-image">
-          <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); height: 500px; display: flex; align-items: center; justify-content: center;">
-            <img src="images/sharmi-2.jpg" alt="Sharmila's photo">
+          <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); height: fit-content; display: flex; align-items: stretch; justify-content: center;">
+            <img src="images/sharmi-2.jpg"  alt="Sharmila's photo">
           </div>
         </div>
         
