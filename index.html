@@ -38,6 +38,10 @@
       font-family: 'Inter', sans-serif;
     }
     
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--dark);
       color: var(--light);
@@ -125,7 +129,7 @@
       z-index: 2;
     }
     
-    h1, h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5, strong {
       font-weight: 700;
       margin-bottom: 20px;
       color: var(--light);
@@ -503,18 +507,20 @@
     .portrait-image {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       border: 5px solid var(--profile-border);
       border-radius: 50%;
       box-shadow: 
         0 20px 30px rgba(0, 0, 0, 0.4),
         inset 0 0 30px rgba(255, 255, 255, 0.3);
       transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      justify-content: center;
       overflow: hidden;
+      background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+    }
+
+    .portrait-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
     
     .tilted-card:hover .portrait-image {
@@ -581,7 +587,7 @@
     .about-content { display: flex; gap: 60px; align-items: center; position: relative; z-index: 2; }
     .about-image { flex: 1; border-radius: 25px; overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); transform: rotate(0deg); transition: transform 0.4s ease; width: 100%; max-width: 380px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 2; }
     .about-image:hover { transform: rotateX(0deg) rotateY(0deg) scale(1.05) translateZ(50px); }
-    .about-image img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
     .about-image:hover img { transform: scale(1.05); }
     .about-text { flex: 1; }
     .about-text h3 { font-size: 32px; margin-bottom: 25px; color: var(--primary-light); }
@@ -601,7 +607,7 @@
     .skill-item { margin-bottom: 30px; }
     .skill-header { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; }
     .skill-bar { height: 12px; background: rgba(255, 255, 255, 0.08); border-radius: 10px; overflow: hidden; }
-    .skill-progress { height: 100%; background: var(--primary); border-radius: 10px; position: relative; transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .skill-progress { height: 100%; background: var(--primary); border-radius: 10px; position: relative; transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); width: 0; /* Start at 0 width */ }
     .skill-progress:after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); animation: progressAnimation 2s infinite linear; }
     @keyframes progressAnimation { 0% { background-position: -300px 0; } 100% { background-position: calc(300px + 100%) 0; } }
     .portfolio { background: var(--dark-light); position: relative; overflow: hidden; }
@@ -650,6 +656,7 @@
       .hero-text { max-width: 100%; margin-bottom: 60px; } 
       .social-links { justify-content: center; } 
       .about-content { flex-direction: column; } 
+      .about-image { max-width: 100%; } /* FIX: Allow about image to scale */
       .contact-container { grid-template-columns: 1fr; } 
       .tilted-card-wrapper { margin: 0 auto; } 
       header#header.shrunken #main-nav { max-width: 95%; }
@@ -661,8 +668,9 @@
         display: none !important;
       }
       
+      /* FIX: Ensure particle canvas is visible on mobile */
       #particle-canvas {
-        display: inherit !important; /* Ensure canvas is visible on mobile */
+        display: block !important; 
       }
 
       body, .btn, .mobile-toggle, .filter-btn {
@@ -708,17 +716,18 @@
       header#header.shrunken #main-nav {
         padding: 0 20px;
       }
-      header#header.shrunken .nav-links {
-        gap: 15px;
-      }
-      header#header.shrunken .nav-links a {
-        font-size: 13px;
-      }
+      
       .hero-text h1 { font-size: 2.8rem; }
       .skills-container { grid-template-columns: 1fr; }
       .portfolio-grid { grid-template-columns: 1fr; }
       .section-title h2 { font-size: 36px; }
       .about-details { grid-template-columns: 1fr; }
+      
+      /* FIX: Explicitly set contact container to single column */
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
     }
     
     @media (max-width: 576px) {
@@ -726,16 +735,6 @@
       .section-title h2 { font-size: 30px; }
       .tilted-card-content h3 { font-size: 1.8rem; } 
       .tilted-card-content p { font-size: 1.1rem; }
-      .nav-links li a {
-        font-size: 12px; /* Further reduce font size on very small screens */
-        padding: 5px 2px;
-      }
-      .nav-links {
-        gap: 8px;
-      }
-       header#header.shrunken .nav-links a {
-        font-size: 12px;
-      }
       header#header.shrunken .logo a {
         font-size: 30px;
       }
@@ -789,7 +788,7 @@
               </span>
               <br>
               <span class="word">
-                <span class="letter">G</span><span class="letter">r</span><span class="letter">a</span><span class="letter">p</span><span class="letter">h</span><span class="letter">i</span><span class="letter">c</span>
+                <span class="letter">G</span><span class="letter">r</span><a class="letter" href="https://www.instagram.com/p/C8k_zthSpR6/?img_index=1">p</a><span class="letter">h</span><span class="letter">i</span><span class="letter">c</span>
               </span>
               <span class="word">
                 <span class="letter">&amp;</span>
@@ -818,9 +817,7 @@
             <div class="tilted-card-inner">
               <div class="tilted-card-image">
                 <div class="portrait-image">
-                  <div style="width: 180px; height: 180px; background: linear-gradient(45deg, #a1c4fd, #c2e9fb); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <img src="images/sharmi-111.jpg" alt="Sharmila's photo">
-                  </div>
+                  <img src="images/sharmi-111.jpg" alt="Sharmila's photo">
                 </div>
               </div>
               <div class="tilted-card-content">
@@ -848,7 +845,7 @@
       
       <div class="about-content">
         <div class="about-image">
-          <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); height: fit-content; display: flex; align-items: stretch; justify-content: center;">
+          <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); display: flex; align-items: stretch; justify-content: center; border-radius: 25px; overflow: hidden;">
             <img src="images/sharmi-2.jpg"  alt="Sharmila's photo">
           </div>
         </div>
@@ -915,7 +912,7 @@
               <span>85%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 85%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
           
@@ -925,7 +922,7 @@
               <span>95%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 95%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
           
@@ -935,7 +932,7 @@
               <span>90%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 90%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
         </div>
@@ -949,7 +946,7 @@
               <span>75%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 75%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
           
@@ -959,7 +956,7 @@
               <span>90%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 90%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
           
@@ -969,7 +966,7 @@
               <span>85%</span>
             </div>
             <div class="skill-bar">
-              <div class="skill-progress" style="width: 85%"></div>
+              <div class="skill-progress"></div>
             </div>
           </div>
         </div>
@@ -1127,7 +1124,7 @@
         </div>
         
         <div class="copyright">
-          <p>&copy; 2025 Sharmila S. All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <h2>SURYA </h2></p>
+          <p>&copy; 2025 Sharmila S. All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <strong>SURYA</strong></p>
         </div>
       </div>
     </div>
@@ -1303,8 +1300,7 @@
       const navMenuLinks = document.querySelectorAll('#navmenu a');
       navMenuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-          e.preventDefault();
-
+          
           // Close mobile menu if it's active
           if (navMenu.classList.contains('nav-active')) {
             navMenu.classList.remove('nav-active');
@@ -1312,17 +1308,6 @@
             document.body.style.overflow = 'auto';
           }
 
-          // Update active class on click
-          navMenuLinks.forEach(l => l.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Smooth scroll
-          const targetElement = document.querySelector(this.getAttribute('href'));
-          if (targetElement) {
-              targetElement.scrollIntoView({
-                behavior: 'smooth'
-              });
-          }
         });
       });
 
@@ -1437,6 +1422,7 @@
           if (entry.isIntersecting) {
             const width = entry.target.parentElement.previousElementSibling.querySelector('span:last-child').textContent;
             entry.target.style.width = width;
+            observer.unobserve(entry.target); // Stop observing after animation
           }
         });
       }, { threshold: 0.5 });
@@ -1448,9 +1434,11 @@
       const sections = document.querySelectorAll("section[id]");
       function updateActiveLink() {
         let currentSection = "";
+        const scrollPosition = pageYOffset;
+
         sections.forEach((section) => {
           const sectionTop = section.offsetTop;
-          if (pageYOffset >= sectionTop - 100) {
+          if (scrollPosition >= sectionTop - 100) {
             currentSection = section.getAttribute("id");
           }
         });
@@ -1466,4 +1454,4 @@
     });
   </script>
 </body>
-</html>
+</html"
