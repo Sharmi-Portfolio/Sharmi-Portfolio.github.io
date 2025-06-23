@@ -57,39 +57,61 @@
         z-index: -1; 
     }
 
-    /* --- NEW: Trailing Dots Cursor --- */
-    .cursor-dot {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 8px;
-      height: 8px;
-      background-color: var(--primary);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      transition: transform 0.1s ease-out;
+    /* --- UPDATED: Image Placeholder Cursor --- */
+    #image-cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 40px; 
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
     }
-    .cursor-dot-outline {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 30px;
-      height: 30px;
-      border: 2px solid var(--primary-light);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 9998;
-      transition: all 0.2s ease-out;
+
+    .cursor-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: opacity 0.25s ease-out, transform 0.25s ease-out;
     }
-    .cursor-dot-outline.hover {
-      background-color: rgba(255, 157, 104, 0.2);
-      width: 40px;
-      height: 40px;
+
+    .cursor-circle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: var(--primary);
+        border-radius: 50%;
+        transition: opacity 0.25s ease-out;
     }
     
+    #image-cursor.hovered {
+        width: 60px;
+        height: 60px;
+        border-color: var(--primary);
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(5px);
+    }
+    
+    #image-cursor.hovered .cursor-circle {
+        opacity: 0;
+    }
+
+    #image-cursor.hovered .cursor-image {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+
     .container {
       width: 90%;
       max-width: 1200px;
@@ -336,9 +358,8 @@
       z-index: 2;
     }
     
-    /* -- RESTORED HERO TEXT ANIMATION -- */
     .hero-heading {
-      letter-spacing: -0.0.25em;
+      letter-spacing: -0.025em;
     }
     
     .variable-proximity {
@@ -350,7 +371,7 @@
       display: inline-block;
       transition: font-variation-settings 0.2s ease-out;
       will-change: font-variation-settings;
-      margin-right: -0.0.10em;
+      margin-right: -0.01em; 
     }
     
     .word .letter:last-child {
@@ -636,7 +657,7 @@
     
     @media (max-width: 768px) {
       /* Hide custom cursor on mobile for better UX */
-      .cursor-dot, .cursor-dot-outline, #particle-canvas {
+      #image-cursor, #particle-canvas {
         display: none !important;
       }
       body, .btn, .mobile-toggle, .filter-btn {
@@ -690,9 +711,12 @@
   <!-- Canvas for Particle Effect -->
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Trailing Dots Cursor -->
-  <div class="cursor-dot"></div>
-  <div class="cursor-dot-outline"></div>
+  <!-- Image Placeholder Cursor -->
+  <div id="image-cursor">
+      <div class="cursor-circle"></div>
+      <img class="cursor-image" src="images/website-logo/favicon.png" alt="cursor image">
+  </div>
+
 
   <header id="header">
       <nav id="main-nav">
@@ -759,7 +783,7 @@
               <div class="tilted-card-image">
                 <div class="portrait-image">
                   <div style="width: 180px; height: 180px; background: linear-gradient(45deg, #a1c4fd, #c2e9fb); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <img src="images/profile-pic-1-new.png" alt="Sharmila's photo">
+                    <img src="images/sharmi-11.jpg" alt="Sharmila's photo">
                   </div>
                 </div>
               </div>
@@ -789,7 +813,7 @@
       <div class="about-content">
         <div class="about-image">
           <div style="background: linear-gradient(45deg, #a1c4fd, #c2e9fb); height: 500px; display: flex; align-items: center; justify-content: center;">
-            <img src="images/mikasa.jpg" alt="Sharmila's photo">
+            <img src="images/sharmi-2.jpg" alt="Sharmila's photo">
           </div>
         </div>
         
@@ -1079,41 +1103,40 @@
       const mobileToggle = document.getElementById('mobile-toggle');
       const navMenu = document.getElementById('navmenu');
 
-      // --- Trailing Dots Cursor ---
-      const cursorDot = document.querySelector('.cursor-dot');
-      const cursorOutline = document.querySelector('.cursor-dot-outline');
+      // --- Glassmorphism Cursor ---
+      const cursor = document.getElementById('image-cursor');
       const interactiveElements = document.querySelectorAll('a, button, .filter-btn, .portfolio-item, .social-links a, .tilted-card');
-      
+
       let mouseX = 0, mouseY = 0;
-      let outlineX = 0, outlineY = 0;
-      const easing = 0.15;
+      let cursorX = 0, cursorY = 0;
+      const easing = 0.2; // Increased for a "snappier" feel
 
       window.addEventListener('mousemove', e => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+          mouseX = e.clientX;
+          mouseY = e.clientY;
       });
 
-      function animateCursor() {
-        cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-        
-        const deltaX = mouseX - outlineX;
-        const deltaY = mouseY - outlineY;
-        outlineX += deltaX * easing;
-        outlineY += deltaY * easing;
-
-        cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px)`;
-        
-        requestAnimationFrame(animateCursor);
+      function animateGlassCursor() {
+        if(cursor) {
+          const dx = mouseX - cursorX;
+          const dy = mouseY - cursorY;
+          cursorX += dx * easing;
+          cursorY += dy * easing;
+          
+          cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+          
+          requestAnimationFrame(animateGlassCursor);
+        }
       }
-      animateCursor();
+      animateGlassCursor();
 
       interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          cursorOutline.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
-          cursorOutline.classList.remove('hover');
-        });
+          el.addEventListener('mouseenter', () => {
+              if (cursor) cursor.classList.add('hovered');
+          });
+          el.addEventListener('mouseleave', () => {
+              if (cursor) cursor.classList.remove('hovered');
+          });
       });
 
 
@@ -1125,15 +1148,15 @@
 
       let particlesArray;
 
-      const mouse = {
+      const particleMouse = {
         x: null,
         y: null,
         radius: (canvas.height / 120) * (canvas.width / 120)
       }
 
       window.addEventListener('mousemove', (event) => {
-        mouse.x = event.x;
-        mouse.y = event.y;
+        particleMouse.x = event.x;
+        particleMouse.y = event.y;
       });
       
       class Particle {
@@ -1164,10 +1187,10 @@
             this.directionY = -this.directionY;
           }
           
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
+          let dx = particleMouse.x - this.x;
+          let dy = particleMouse.y - this.y;
           let distance = Math.sqrt(dx*dx + dy*dy);
-          if (distance < mouse.radius + this.size){
+          if (distance < particleMouse.radius + this.size){
               this.x -= dx / 10;
               this.y -= dy / 10;
           }
@@ -1208,13 +1231,13 @@
       window.addEventListener('resize', () => {
         canvas.width = innerWidth;
         canvas.height = innerHeight;
-        mouse.radius = ((canvas.height / 120) * (canvas.width / 120));
+        particleMouse.radius = ((canvas.height / 120) * (canvas.width / 120));
         init();
       });
 
       window.addEventListener('mouseout', () => {
-        mouse.x = undefined;
-        mouse.y = undefined;
+        particleMouse.x = undefined;
+        particleMouse.y = undefined;
       });
 
       init();
