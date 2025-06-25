@@ -741,6 +741,64 @@
         font-size: 30px;
       }
     }
+
+      /* ... existing styles ... */
+
+  /* --- CONTACT SECTION MOBILE FIXES --- */
+  @media (max-width: 768px) {
+    /* New fix: Adjust form input padding for mobile */
+    .contact-form input, .contact-form textarea {
+      padding: 14px 18px; /* Slightly reduced padding */
+    }
+    
+    /* New fix: Reduce horizontal padding on contact items */
+    .contact-item {
+      padding: 20px 15px;
+    }
+    
+    /* New fix: Make contact items full width */
+    .contact-info, .contact-form-wrapper {
+      width: 100%;
+    }
+    
+    /* New fix: Adjust form layout */
+    .contact-form .form-group {
+      margin-bottom: 20px;
+    }
+    
+    /* New fix: Reduce contact icon size on mobile */
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+    
+    /* New fix: Ensure form fits within container */
+    .contact-form-wrapper {
+      padding: 0 5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Extra adjustments for very small screens */
+    .contact-form input, .contact-form textarea {
+      padding: 12px 15px;
+      font-size: 16px;
+    }
+    
+    .contact-item {
+      padding: 15px 12px;
+    }
+    
+    .contact-details h4 {
+      font-size: 18px;
+    }
+    
+    .contact-details p {
+      font-size: 16px;
+    }
+  }
+
   </style>
 </head>
 
