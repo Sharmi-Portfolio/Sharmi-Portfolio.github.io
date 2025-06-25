@@ -66,8 +66,8 @@
         position: fixed;
         left: 0;
         top: 0;
-        width: 40px; 
-        height: 40px;
+        width: 30px; 
+        height: 30px;
         border: 2px solid rgba(255, 255, 255, 0.3);
         border-radius: 50%;
         pointer-events: none;
@@ -99,8 +99,8 @@
     }
     
     #image-cursor.hovered {
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         border-color: var(--primary);
         background: rgba(255,255,255,0.1);
         backdrop-filter: blur(5px);
@@ -1362,15 +1362,15 @@
               
               letters.forEach(letter => {
                   const { left, top, width, height } = letter.getBoundingClientRect();
-                  const centerX = left + width / 2;
-                  const centerY = top + height / 2;
+                  const centerX = left + width / 3;
+                  const centerY = top + height / 3;
                   
                   const deltaX = clientX - centerX;
                   const deltaY = clientY - centerY;
                   
                   const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
                   
-                  const maxDist = 100;
+                  const maxDist = 200;
                   const newWeight = Math.max(200, 900 - (distance / maxDist) * 400);
                   
                   if (distance < maxDist) {
