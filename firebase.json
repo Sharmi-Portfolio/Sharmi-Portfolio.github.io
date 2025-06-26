@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "C:\\Users\\samsu\\OneDrive\\Desktop\\Sharmi Portfolio Website\\Sharmi-Portfolio.github.io",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
