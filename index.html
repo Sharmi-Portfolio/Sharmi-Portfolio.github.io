@@ -334,6 +334,17 @@
         width: 100%;
     }
     
+    /* Admin Link Styles */
+    .nav-links .admin-link i {
+        font-size: 20px;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .nav-links .admin-link:hover i {
+        transform: rotate(90deg);
+        color: var(--primary);
+    }
+
+
     header#header.shrunken .logo a {
         font-size: 22px;
     }
@@ -457,6 +468,7 @@
     .mobile-nav-container.active .mobile-nav-links li:nth-child(3) { transition-delay: 0.2s; }
     .mobile-nav-container.active .mobile-nav-links li:nth-child(4) { transition-delay: 0.25s; }
     .mobile-nav-container.active .mobile-nav-links li:nth-child(5) { transition-delay: 0.3s; }
+    .mobile-nav-container.active .mobile-nav-links li:nth-child(6) { transition-delay: 0.35s; } /* Delay for admin link */
     
     .mobile-nav-links a {
       display: flex;
@@ -1332,6 +1344,7 @@
         <li><a href="#skills"><i class="fas fa-code"></i> Skills</a></li>
         <li><a href="#portfolio"><i class="fas fa-briefcase"></i> Portfolio</a></li>
         <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="login.html"><i class="fas fa-cog"></i> Admin</a></li>
       </ul>
       
       <div class="skills-preview">
@@ -1369,6 +1382,7 @@
               <li><a href="#skills">Skills</a></li>
               <li><a href="#portfolio">Portfolio</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li><a href="login.html" class="admin-link" title="Admin Login"><i class="fas fa-cog"></i></a></li>
           </ul>
           <button class="mobile-toggle" id="mobile-toggle">
               <span></span>
@@ -1596,8 +1610,8 @@
         <button class="filter-btn">UX/UI</button>
       </div>
       
-      <div class="portfolio-grid">
-        <!-- NEW PORTFOLIO ITEM STRUCTURE -->
+      <div class="portfolio-grid" id="portfolio-grid">
+        <!-- Projects will be dynamically loaded here -->
         <div class="portfolio-item scroll-animate" style="transition-delay: 0.2s;">
             <div class="portfolio-img-wrapper">
                 <div style="background: linear-gradient(45deg, #ff9a9e, #fad0c4); height: 100%; display: flex; align-items: center; justify-content: center;" class="portfolio-img">
@@ -1760,7 +1774,79 @@
     </div>
   </footer>
 
-  <script>
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // --- IMPORTANT: Paste your Firebase config here ---
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+    // --- END of Firebase config section ---
+    
+    // Initialize Firebase
+    try {
+        if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY") {
+            console.warn("Firebase config is not set. Portfolio projects will not be loaded.");
+        } else {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            loadProjects(db);
+        }
+    } catch(e) {
+        console.error("Firebase initialization failed:", e);
+    }
+
+    // Function to load projects from Firestore
+    function loadProjects(db) {
+        const projectsCollection = collection(db, "projects");
+        const portfolioGrid = document.getElementById('portfolio-grid');
+
+        onSnapshot(projectsCollection, (snapshot) => {
+            if (snapshot.empty) {
+                return; // Do nothing if there are no projects
+            }
+            portfolioGrid.innerHTML = ''; // Clear static projects
+            snapshot.forEach((doc) => {
+                const project = doc.data();
+                const projectItem = document.createElement('div');
+                projectItem.className = 'portfolio-item scroll-animate';
+                projectItem.innerHTML = `
+                    <div class="portfolio-img-wrapper">
+                        <img src="${project.imageUrl}" alt="${project.title}" class="portfolio-img" onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(45deg, #6b7280, #4b5563)';">
+                    </div>
+                    <div class="portfolio-glass-overlay">
+                        <div class="liquid-anim"></div>
+                        <div class="portfolio-info">
+                            <h4>${project.title}</h4>
+                            <p>${project.description}</p>
+                            <span class="btn btn-light">${project.category}</span>
+                        </div>
+                    </div>
+                `;
+                portfolioGrid.appendChild(projectItem);
+            });
+            // Re-initialize scroll animations for new elements
+            const animatedElements = document.querySelectorAll('.scroll-animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => observer.observe(el));
+        });
+    }
+
+
     document.addEventListener("DOMContentLoaded", function() {
       const header = document.getElementById('header');
       const mobileToggle = document.getElementById('mobile-toggle');
@@ -1945,11 +2031,13 @@
       const navMenuLinks = document.querySelectorAll('#navmenu a, .mobile-nav-links a');
       navMenuLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-          // Remove active class from all links
-          navMenuLinks.forEach(l => l.classList.remove('active'));
-          
-          // Add active class to clicked link
-          this.classList.add('active');
+          if (!this.hasAttribute('href') || this.getAttribute('href').startsWith('#')) {
+            // Remove active class from all links
+            navMenuLinks.forEach(l => l.classList.remove('active'));
+            
+            // Add active class to clicked link
+            this.classList.add('active');
+          }
         });
       });
 
@@ -2092,10 +2180,12 @@
 
         const allNavLinks = document.querySelectorAll('#navmenu a, .mobile-nav-links a');
         allNavLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href").substring(1) === currentSection) {
-            link.classList.add("active");
-          }
+            if (link.getAttribute("href") && link.getAttribute("href").startsWith("#")) {
+                link.classList.remove("active");
+                if (link.getAttribute("href").substring(1) === currentSection) {
+                    link.classList.add("active");
+                }
+            }
         });
       }
       window.addEventListener("scroll", updateActiveLink);

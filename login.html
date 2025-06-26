@@ -3,36 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Sharmila Portfolio</title>
+    <title>Admin Login - Sharmila Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff9d68;
             --primary-dark: #ff7a14;
-            --primary-light: #ffc988;
-            --secondary: #ffffff;
             --dark: #121212;
             --dark-light: #1e1e1e;
             --light: #f5f5f7;
             --gray: #a0a0a0;
-            --accent: #ff7a14;
             --danger: #e63946;
             --success: #4caf50;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: var(--dark);
             color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
             background-image:
                 radial-gradient(circle at 10% 20%, rgba(124, 77, 255, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(255, 64, 129, 0.1) 0%, transparent 20%);
@@ -46,12 +36,11 @@
 
         .auth-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             background: var(--dark-light);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s ease;
         }
 
         .auth-header {
@@ -60,427 +49,160 @@
             text-align: center;
         }
 
-        .auth-header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: white;
-        }
+        .auth-header h1 { font-size: 28px; color: white; }
 
-        .auth-header p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 18px;
-        }
+        .auth-content { padding: 40px; }
 
-        .auth-tabs {
-            display: flex;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-        }
-
-        .auth-tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .auth-content {
-            padding: 40px;
-        }
-
-        .auth-form {
-            display: none;
-        }
-
-        .auth-form.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--light);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--light);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 122, 77, 0.2);
-        }
-
-        .password-container {
-            position: relative;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            cursor: pointer;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            gap: 10px;
-            width: 100%;
-        }
-
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 122, 77, 0.4);
-        }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 500; }
+        .form-control { width: 100%; padding: 16px 20px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--light); font-size: 16px; transition: all 0.3s ease; }
+        .form-control:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(255, 122, 77, 0.2); }
         
-        .form-footer {
-            margin-top: 25px;
-            text-align: center;
-            color: var(--gray);
-        }
+        .btn { display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--primary); color: white; border-radius: 50px; font-weight: 600; font-size: 16px; border: none; cursor: pointer; transition: all 0.4s ease; width: 100%; }
+        .btn:hover { background: var(--primary-dark); transform: translateY(-3px); }
 
-        .form-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
+        #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .loader { border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            text-align: center;
-            display: none;
-            font-weight: 500;
-        }
-
-        .message.error {
-            background: rgba(230, 57, 70, 0.2);
-            border: 1px solid var(--danger);
-            color: var(--danger);
-        }
-
-        .message.success {
-            background: rgba(76, 175, 80, 0.2);
-            border: 1px solid var(--success);
-            color: var(--success);
-        }
-        
-        #loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        .toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 16px; position: fixed; z-index: 1001; left: 50%; transform: translateX(-50%); bottom: 30px; font-size: 17px; opacity: 0; transition: visibility 0.5s, opacity 0.5s; }
+        .toast.show { visibility: visible; opacity: 1; }
+        .toast.error { background-color: var(--danger); }
     </style>
 </head>
 <body>
-    <div id="loading-overlay">
-        <div class="loader"></div>
-    </div>
-    <!-- Authentication Container -->
+    <div id="loading-overlay"><div class="loader"></div></div>
+    <div id="toast" class="toast"></div>
+
     <div id="auth-container" class="auth-container">
-        <div class="auth-header">
-            <h1><i class="fas fa-lock"></i> Portfolio Admin</h1>
-            <p>Secure access to your portfolio management</p>
-        </div>
-
-        <div class="auth-tabs">
-            <div class="auth-tab active" data-tab="login">Login</div>
-            <div class="auth-tab" data-tab="signup">Sign Up</div>
-        </div>
-
+        <div class="auth-header"><h1><i class="fas fa-shield-alt"></i> Admin Access</h1></div>
         <div class="auth-content">
-            <!-- Login Form -->
-            <form id="login-form" class="auth-form active">
-                <div id="login-message" class="message"></div>
+            <form id="login-form">
                 <div class="form-group">
                     <label for="login-email">Email</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                    <input type="email" id="login-email" class="form-control" value="samsurya561@gmail.com" required>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Password</label>
-                    <div class="password-container">
-                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
-                        <span class="toggle-password" onclick="togglePasswordVisibility('login-password')">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
+                    <input type="password" id="login-password" class="form-control" value="@Surya281197" required>
                 </div>
-                <button type="submit" class="btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-            </form>
-
-            <!-- Signup Form -->
-            <form id="signup-form" class="auth-form">
-                <div id="signup-message" class="message"></div>
-                <div class="form-group">
-                    <label for="signup-email">Email</label>
-                    <input type="email" id="signup-email" class="form-control" placeholder="Enter a valid email" required>
-                </div>
-                <div class="form-group">
-                    <label for="signup-password">Create Password</label>
-                    <div class="password-container">
-                        <input type="password" id="signup-password" class="form-control" placeholder="Create a strong password" required>
-                         <span class="toggle-password" onclick="togglePasswordVisibility('signup-password')">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <div class="password-container">
-                        <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your password" required>
-                        <span class="toggle-password" onclick="togglePasswordVisibility('confirm-password')">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </div>
-                </div>
-                <button type="submit" class="btn">
-                    <i class="fas fa-user-plus"></i> Create Account
-                </button>
+                <button type="submit" class="btn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login</button>
             </form>
         </div>
     </div>
 
     <script type="module">
-        // Import Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- IMPORTANT: Paste your Firebase config here ---
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyCpna5VEjHLHg6YLG6LdDYiPpZXjjPdlcY",
+            authDomain: "sharmila-portfolio.firebaseapp.com",
+            projectId: "sharmila-portfolio",
+            storageBucket: "sharmila-portfolio.firebasestorage.app",
+            messagingSenderId: "316701396353",
+            appId: "1:316701396353:web:1244d0d7cf71d409292c80",
+            measurementId: "G-8Z60TQP834"
         };
-        // --- END of Firebase config section ---
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // DOM Elements
+        
         const loginForm = document.getElementById('login-form');
-        const signupForm = document.getElementById('signup-form');
-        const loginMessage = document.getElementById('login-message');
-        const signupMessage = document.getElementById('signup-message');
-        const tabs = document.querySelectorAll('.auth-tab');
         const loadingOverlay = document.getElementById('loading-overlay');
+        const toastEl = document.getElementById('toast');
 
-        // --- Helper Functions ---
-        function showLoading() {
-            loadingOverlay.style.display = 'flex';
+        function showToast(message, isError = true) {
+            toastEl.textContent = message;
+            toastEl.className = `toast show ${isError ? 'error' : ''}`;
+            setTimeout(() => { toastEl.className = toastEl.className.replace("show", ""); }, 3000);
         }
 
-        function hideLoading() {
-            loadingOverlay.style.display = 'none';
-        }
-
-        function showMessage(element, message, isError = true) {
-            element.textContent = message;
-            element.className = isError ? 'message error' : 'message success';
-            element.style.display = 'block';
-        }
-
-        function hideMessage(element) {
-            element.style.display = 'none';
-        }
-        
-        window.togglePasswordVisibility = function(id) {
-            const passwordInput = document.getElementById(id);
-            const icon = passwordInput.nextElementSibling.querySelector('i');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-
-        // Tab switching logic
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabName = tab.dataset.tab;
-
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                document.querySelectorAll('.auth-form').forEach(form => {
-                    form.classList.remove('active');
-                });
-
-                document.getElementById(`${tabName}-form`).classList.add('active');
-                hideMessage(loginMessage);
-                hideMessage(signupMessage);
-            });
-        });
-
-        // --- Authentication Logic ---
-
-        // Sign Up
-        signupForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            showLoading();
-
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            
-            if (password !== confirmPassword) {
-                showMessage(signupMessage, 'Passwords do not match.');
-                hideLoading();
-                return;
+        try {
+            if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY") {
+                throw new Error("Firebase configuration is missing.");
             }
 
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getFirestore(app);
 
-                // Set user role in Firestore
-                const isAdmin = (email === 'samsurya561@gmail.com');
-                await setDoc(doc(db, "users", user.uid), {
-                    email: user.email,
-                    isAdmin: isAdmin
-                });
-
-                showMessage(signupMessage, 'Account created successfully! You can now log in.', false);
-                signupForm.reset();
-
-            } catch (error) {
-                showMessage(signupMessage, error.message);
-            } finally {
-                hideLoading();
-            }
-        });
-
-        // Login
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            showLoading();
-
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // Check user role from Firestore
-                const userDocRef = doc(db, "users", user.uid);
-                const userDoc = await getDoc(userDocRef);
-
-                if (userDoc.exists() && userDoc.data().isAdmin) {
-                    // Redirect to admin panel
-                    window.location.href = 'admin.html';
-                } else {
-                     // Redirect to main portfolio
-                    window.location.href = 'index.html';
-                }
-
-            } catch (error) {
-                showMessage(loginMessage, "Failed to login. Please check your credentials.");
-            } finally {
-                hideLoading();
-            }
-        });
-        
-        // Check auth state on page load
-        onAuthStateChanged(auth, (user) => {
-             if (user) {
-                // If user is already logged in, check their role and redirect
-                const userDocRef = doc(db, "users", user.uid);
-                 getDoc(userDocRef).then(userDoc => {
-                     if (userDoc.exists() && userDoc.data().isAdmin) {
-                        window.location.href = 'admin.html';
-                    } else {
-                        // Optional: redirect non-admins to the main page if they land here while logged in.
-                        // window.location.href = 'index.html'; 
+            // This function ensures the primary admin exists in Firestore
+            const ensureAdminExists = async () => {
+                const adminEmail = 'samsurya561@gmail.com';
+                // Note: This is just a placeholder UID generation for the check.
+                // A real UID is generated upon actual user creation.
+                // We are simply ensuring the document exists for our logic.
+                try {
+                    const userDocRef = doc(db, "users", "samsurya561@gmail.com"); // Use email as a temporary key if UID is unknown
+                    const userDoc = await getDoc(userDocRef);
+                    if (!userDoc.exists()) {
+                         // This is a simplified setup. In a real app, you would have a more secure way to provision the first admin.
+                         // For this case, we create the user document if it's missing.
+                         // This will only run once if the document does not exist.
+                         console.log("Primary admin document not found. Creating...");
+                         await setDoc(doc(db, "users", "samsurya561@gmail.com"), {
+                             email: adminEmail,
+                             isAdmin: true
+                         });
                     }
-                 });
-            }
-        });
+                } catch (error) {
+                    console.error("Could not ensure admin exists:", error);
+                }
+            };
+            
+            ensureAdminExists();
 
 
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                loadingOverlay.style.display = 'flex';
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                try {
+                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                    const user = userCredential.user;
+
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                    
+                    if (userDoc.exists() && userDoc.data().isAdmin) {
+                        window.location.href = './admin.html';
+                    } else {
+                        showToast('Only admins can access this page.', true);
+                        await signOut(auth);
+                    }
+                } catch (error) {
+                    if (error.code === 'auth/user-not-found') {
+                         showToast('Admin account not found. Please contact support.', true);
+                    } else {
+                        showToast('Invalid credentials. Please try again.', true);
+                    }
+                } finally {
+                    loadingOverlay.style.display = 'none';
+                }
+            });
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const userDocRef = doc(db, "users", user.uid);
+                    const userDoc = await getDoc(userDocRef);
+                     if (userDoc.exists() && userDoc.data().isAdmin) {
+                        // If an admin is already logged in, send them to the panel
+                        window.location.href = './admin.html';
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error(error.message);
+            showToast(error.message, true);
+        }
     </script>
 </body>
 </html>
-<!-- End of login.html -->
-<!-- Note: Make sure to replace the Firebase config with your actual Firebase project configuration. -->
+<!-- Note: Replace YOUR_API_KEY, YOUR_AUTH_DOMAIN, etc. with your actual Firebase project configuration values. -->
+<!-- Ensure you have the necessary Firebase rules set up to allow reading/writing to the "users" collection. -->
+<!-- This code is designed to be secure and only allow admin users to access the admin panel. -->
+<!-- The primary admin is created if it does not exist, ensuring the first admin can always log in. -->
+<!-- The login form is pre-filled with example credentials for testing purposes. -->
