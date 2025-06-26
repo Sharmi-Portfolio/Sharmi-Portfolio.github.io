@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Sharmila Portfolio</title>
+    <title>Admin Access - Sharmila Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -73,19 +73,14 @@
 <body>
     <div id="loading-overlay"><div class="loader"></div></div>
     <div id="toast" class="toast"></div>
-
+    
     <div id="auth-container" class="auth-container">
-        <div class="auth-header"><h1><i class="fas fa-shield-alt"></i> Admin Access</h1></div>
+         <div class="auth-header"><h1><i class="fas fa-shield-alt"></i> Admin Login</h1></div>
         <div class="auth-content">
             <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">Email</label>
-                    <input type="email" id="login-email" class="form-control" value="samsurya561@gmail.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" class="form-control" value="@Surya281197" required>
-                </div>
+                <div id="login-message" class="message"></div>
+                <div class="form-group"><label for="login-email">Email</label><input type="email" id="login-email" class="form-control" placeholder="Enter your email" required></div>
+                <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" class="form-control" placeholder="Enter your password" required></div>
                 <button type="submit" class="btn"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i> Login</button>
             </form>
         </div>
@@ -93,8 +88,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCpna5VEjHLHg6YLG6LdDYiPpZXjjPdlcY",
@@ -110,9 +104,9 @@
         const loadingOverlay = document.getElementById('loading-overlay');
         const toastEl = document.getElementById('toast');
 
-        function showToast(message, isError = true) {
+        function showToast(message) {
             toastEl.textContent = message;
-            toastEl.className = `toast show ${isError ? 'error' : ''}`;
+            toastEl.className = 'toast show error';
             setTimeout(() => { toastEl.className = toastEl.className.replace("show", ""); }, 3000);
         }
 
@@ -123,34 +117,6 @@
 
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
-            const db = getFirestore(app);
-
-            // This function ensures the primary admin exists in Firestore
-            const ensureAdminExists = async () => {
-                const adminEmail = 'samsurya561@gmail.com';
-                // Note: This is just a placeholder UID generation for the check.
-                // A real UID is generated upon actual user creation.
-                // We are simply ensuring the document exists for our logic.
-                try {
-                    const userDocRef = doc(db, "users", "samsurya561@gmail.com"); // Use email as a temporary key if UID is unknown
-                    const userDoc = await getDoc(userDocRef);
-                    if (!userDoc.exists()) {
-                         // This is a simplified setup. In a real app, you would have a more secure way to provision the first admin.
-                         // For this case, we create the user document if it's missing.
-                         // This will only run once if the document does not exist.
-                         console.log("Primary admin document not found. Creating...");
-                         await setDoc(doc(db, "users", "samsurya561@gmail.com"), {
-                             email: adminEmail,
-                             isAdmin: true
-                         });
-                    }
-                } catch (error) {
-                    console.error("Could not ensure admin exists:", error);
-                }
-            };
-            
-            ensureAdminExists();
-
 
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -163,46 +129,29 @@
                     const userCredential = await signInWithEmailAndPassword(auth, email, password);
                     const user = userCredential.user;
 
-                    const userDocRef = doc(db, "users", user.uid);
-                    const userDoc = await getDoc(userDocRef);
-                    
-                    if (userDoc.exists() && userDoc.data().isAdmin) {
+                    if (user.email === 'samsurya561@gmail.com') {
                         window.location.href = './admin.html';
                     } else {
-                        showToast('Only admins can access this page.', true);
+                        showToast('Please contact the admin team for access.');
                         await signOut(auth);
                     }
                 } catch (error) {
-                    if (error.code === 'auth/user-not-found') {
-                         showToast('Admin account not found. Please contact support.', true);
+                    if (error.code === 'auth/user-not-found' && email === 'samsurya561@gmail.com') {
+                        showToast('Admin account not found. Please create it in Firebase.');
+                    } else if(error.code === 'auth/invalid-credential') {
+                        showToast('Invalid email or password.');
                     } else {
-                        showToast('Invalid credentials. Please try again.', true);
+                        showToast('An error occurred. Please try again.');
                     }
                 } finally {
                     loadingOverlay.style.display = 'none';
                 }
             });
 
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    const userDocRef = doc(db, "users", user.uid);
-                    const userDoc = await getDoc(userDocRef);
-                     if (userDoc.exists() && userDoc.data().isAdmin) {
-                        // If an admin is already logged in, send them to the panel
-                        window.location.href = './admin.html';
-                    }
-                }
-            });
-
         } catch (error) {
             console.error(error.message);
-            showToast(error.message, true);
+            showToast(error.message);
         }
     </script>
 </body>
 </html>
-<!-- Note: Replace YOUR_API_KEY, YOUR_AUTH_DOMAIN, etc. with your actual Firebase project configuration values. -->
-<!-- Ensure you have the necessary Firebase rules set up to allow reading/writing to the "users" collection. -->
-<!-- This code is designed to be secure and only allow admin users to access the admin panel. -->
-<!-- The primary admin is created if it does not exist, ensuring the first admin can always log in. -->
-<!-- The login form is pre-filled with example credentials for testing purposes. -->
